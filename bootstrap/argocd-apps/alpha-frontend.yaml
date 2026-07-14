@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alpha-frontend
+  namespace: argocd
+spec:
+  project: default
+source:
+  repoURL: https://github.com/robpalacios1/internal-developer-platform-core.git
+  targetRevision: master
+  path: charts/platform-application
+  
+  # Here the teams can add their own values
+  helm:
+    values: |
+      replicaCount: 2
+      image:
+        repository: yeasy/simple-web
+        tag: latest
+      service:
+        port: 80
+      env:
+        - name: APP_VERSION
+          value: "production"
+        - name: TEAM_NAME  
+          value: "Alpha"
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
