@@ -25,11 +25,11 @@ source:
         - name: TEAM_NAME  
           value: "Alpha"
 
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: default
+destination:
+  server: "https://kubernetes.default.svc"
+  namespace: default
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
