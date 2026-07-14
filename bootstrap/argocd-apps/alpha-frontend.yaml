@@ -17,13 +17,13 @@ spec:
         image:
           repository: yeasy/simple-web
           tag: latest
-      service:
-        port: 80
-      env:
-        - name: APP_VERSION
-          value: "production"
-        - name: TEAM_NAME  
-          value: "Alpha"
+        service:
+          port: 80
+        env:
+          - name: APP_VERSION
+            value: "production"
+          - name: TEAM_NAME  
+            value: "Alpha"
 
   destination:
     server: "https://kubernetes.default.svc"
@@ -31,5 +31,5 @@ spec:
 
   syncPolicy:
     automated:
-    prune: true
-    selfHeal: true
+      prune: true
+      selfHeal: true
