@@ -13,15 +13,15 @@ spec:
     # Here the teams can add their own values
     helm:
       values: |
-        replicaCount: 2
+        replicaCount: 4
         image:
           repository: yeasy/simple-web
           tag: latest
         service:
           port: 80
         env:
-          - name: APP_VERSION
-            value: "production"
+          - name: APP_ENV
+            value: "staging"
           - name: TEAM_NAME  
             value: "Alpha"
 
