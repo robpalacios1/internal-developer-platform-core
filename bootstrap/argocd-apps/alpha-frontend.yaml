@@ -13,7 +13,7 @@ spec:
     # Here the teams can add their own values
     helm:
       values: |
-        replicaCount: 4
+        replicaCount: 3
         image:
           repository: yeasy/simple-web
           tag: latest
