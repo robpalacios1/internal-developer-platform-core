@@ -12,6 +12,7 @@ stringData:
     clusters:
     - cluster:
         server: https://kubernetes.default.svc
+        insecure-skip-tls-verify: true
       name: local
     contexts:
     - context:
@@ -29,8 +30,4 @@ metadata:
   name: default
 spec:
   credentials:
-    source: Secret
-    secretRef:
-      namespace: crossplane-system
-      name: cluster-config
-      key: kubeconfig
+    source: InjectedIdentity
