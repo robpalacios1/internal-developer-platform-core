@@ -4,5 +4,6 @@ metadata:
   name: alpha-db-env
   namespace: default
 spec:
-  teamName: alpha
-  dbSize: small
+  parameters:
+    teamName: alpha
+    dbSize: small
