@@ -1,0 +1,69 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: databaseenvironments.platform.example.com
+  labels:
+    provider: kubernetes
+spec:
+  compositeTypeRef:
+    apiVersion: platform.example.com/v1alpha1
+    kind: XDatabaseEnvironment
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          # Resource 1: Exclusive Namespace for Team
+          - name: team-namespace
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha1
+              kind: Object
+              spec:
+                forProvider:
+                  manifest:
+                    apiVersion: v1
+                    kind: Namespace
+                    metadata:
+                      name: team-namespace-placeholder
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.teamName
+                toFieldPath: spec.forProvider.manifest.metadata.name
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "db-env-%s"
+
+          # Resource 2: A ConfigMap emulating credentials of DB according to the size requested
+          - name: db-credentials
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha1
+              kind: Object
+              spec:
+                forProvider:
+                  manifest:
+                    apiVersion: v1
+                    kind: ConfigMap
+                    metadata:
+                      name: db-config
+                      namespace: default
+                    data:
+                      DB_HOST: "postgresql-service.internal"
+                      DB_SIZE: "small"         
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.teamName
+                toFieldPath: spec.forProvider.manifest.metadata.namespace
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "db-env-%s"
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.dbSize
+                toFieldPath: spec.forProvider.manifest.data.DB_SIZE

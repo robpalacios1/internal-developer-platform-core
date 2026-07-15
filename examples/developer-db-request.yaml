@@ -1,0 +1,9 @@
+apiVersion: platform.example.com/v1alpha1
+kind: DatabaseEnvironment
+metadata:
+  name: alpha-db-env
+  namespace: default
+spec:
+  parameters:
+    teamName: alpha
+    dbSize: small
