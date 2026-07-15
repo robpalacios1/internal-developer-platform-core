@@ -36,6 +36,7 @@ spec:
                 transforms:
                   - type: string
                     string:
+                      type: Format
                       fmt: "db-env-%s"
 
           # Resource 2: A ConfigMap emulating credentials of DB according to the size requested
@@ -61,6 +62,7 @@ spec:
                 transforms:
                   - type: string
                     string:
+                      type: Format
                       fmt: "db-env-%s"
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.dbSize
