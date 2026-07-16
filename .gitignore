@@ -1,0 +1,30 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Helm / Kubernetes
+/charts/*/charts/
+/charts/*/tmpcharts/
+*.tgz
+kubeconfig
+.kube/
+*.local
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
