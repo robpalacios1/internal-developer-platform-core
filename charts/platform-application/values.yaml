@@ -14,3 +14,7 @@ ingress:
   host: "mi-app.local"
   
 env: []
+
+# crossplane integration
+database:
+  enabled: false
