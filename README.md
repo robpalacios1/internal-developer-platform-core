@@ -196,13 +196,16 @@ kubectl get configmap -n db-env-alpha db-config -o yaml
 ```
 
 ### 3. Verify Argo CD Deployment
-Verify the application sync status:
+Verify the application sync status and access the Argo CD dashboard:
 ```bash
 # Check the application status in Argo CD
 kubectl get application -n argocd alpha-frontend
 
 # List the application pods running in the provisioned namespace
 kubectl get pods -n db-env-alpha
+
+# Port-forward to access Argo CD UI at http://localhost:8888
+kubectl port-forward svc/argocd-server -n argocd 8888:443
 ```
 
 ---
