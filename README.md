@@ -196,13 +196,20 @@ kubectl get configmap -n db-env-alpha db-config -o yaml
 ```
 
 ### 3. Verify Argo CD Deployment
-Verify the application sync status and access the Argo CD dashboard:
+Verify the application sync status, retrieve the admin password, and access the Argo CD dashboard:
 ```bash
 # Check the application status in Argo CD
 kubectl get application -n argocd alpha-frontend
 
 # List the application pods running in the provisioned namespace
 kubectl get pods -n db-env-alpha
+
+# Get the initial admin password (Username: admin)
+# For Linux/macOS:
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+# For Windows PowerShell:
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}")))
 
 # Port-forward to access Argo CD UI at http://localhost:8888
 kubectl port-forward svc/argocd-server -n argocd 8888:443
