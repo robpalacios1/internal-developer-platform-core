@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/robpalacios1/internal-developer-platform-core.git
-    targetRevision: feature/develop
+    targetRevision: master
     path: charts/platform-application
     
     # Here the teams can add their own values
